@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Isaiah Bradley",
+    "email": "isaiah.bradley@perpus.id",
+    "gender": "Male",
+    "age": 23,
+    "tel": "09876152113",
+    "password": "sayasukabaca",
+    "role": "member"
+  },
+  {
+    "name": "Bruce Wayne",
+    "email": "bruce.wayne@perpus.id",
+    "gender": "Male",
+    "age": 29,
+    "tel": "098761529117",
+    "password": "sayasukaread",
+    "role": "member"
+  },
+  {
+    "name": "Sam Wilson",
+    "email": "sam.wilson@perpus.id",
+    "gender": "Male",
+    "age": 31,
+    "tel": "088676152113",
+    "password": "sayalikebaca",
+    "role": "member"
+  },
+  {
+    "name": "Joan Jett",
+    "email": "joan.jett@perpus.id",
+    "gender": "Female",
+    "age": 21,
+    "tel": "09876152223",
+    "password": "isukabaca",
+    "role": "admin"
+  }
+]

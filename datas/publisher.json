@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Penguin Random House",
+    "rating": 5
+  },
+  {
+    "name": "Hachette Livre",
+    "rating": 5
+  },
+  {
+    "name": "Harper Collins",
+    "rating": 4
+  },
+  {
+    "name": "Macmillian Publisher",
+    "rating": 3
+  },
+  {
+    "name": "Simon & Schuster",
+    "rating": 5
+  },
+  {
+    "name": "Kodansha",
+    "rating": 5
+  },
+  {
+    "name": "Shueisha",
+    "rating": 4
+  },
+  {
+    "name": "Bentang",
+    "rating": 5
+  },
+  {
+    "name": "Pt. Gramedia Pustaka Utama",
+    "rating": 5
+  },
+  {
+    "name": "Erlangga",
+    "rating": 4
+  },
+  {
+    "name": "Mizan",
+    "rating": 3
+  },
+  {
+    "name": "Elex Media Komputindo",
+    "rating": 5
+  },
+  {
+    "name": "Penguin Groups",
+    "rating": 5
+  }
+]
