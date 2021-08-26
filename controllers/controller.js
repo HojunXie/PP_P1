@@ -5,15 +5,6 @@ class Controller {
         res.render('homepage')
     }
 
-    static bookDetail (req, res) {
-        const id = req.params.id
-        Book.findByPk(id)
-            .then(data => {
-                res.render('bookDetail', { book: data })
-            })
-            .catch(err => res.send(err))
-    }
-
     static listPeminjaman (req, res) {
         res.render('peminjaman')
     }
@@ -27,7 +18,17 @@ class Controller {
     }
 
     static showAddBooksForm (req, res) {
-        
+        res.render('addBookForm')
+    }
+
+    static addBook (req, res) {
+        console.log(req.body)
+        const { judul, tahun_terbit, cover, stock } = req.body
+        Book.create({
+                judul, tahun_terbit, cover, stock
+            }).then(data => {
+                res.redirect('/books')
+            }).catch(err => res.send(err))
     }
 }
 

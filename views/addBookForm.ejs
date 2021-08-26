@@ -1,0 +1,24 @@
+<%- include('template/header', { pageTitle: "Add New Book" }); %>
+
+<h2>Add New Book</h2>
+
+<form action="/books/add" method="post">
+    <div>
+        <label for="judul">Title</label>
+        <input type="text" name="judul" id="judul">
+    </div>
+    <div>
+        <label for="tahun_terbit">Published Year</label>
+        <input type="text" name="tahun_terbit" id="tahun_terbit">
+    </div>
+    <div>
+        <label for="cover">Cover Url</label>
+        <input type="text" name="cover" id="cover">
+    </div>
+    <div>
+        <label for="stock">stock</label>
+        <input type="number" name="stock" id="stock">
+    </div>
+    <input type="submit" value="Add">
+</form>
+<%- include('template/footer'); %>
