@@ -6,9 +6,10 @@ const bookRouter = require('./books')
 const loginRouter = require('./login')
 const publisherRouter = require('./publisher')
 const userRouter = require('./user')
+const checkIfLogin = require('../middlewares/checkLogin')
 
 router.get('/', Controller.homePage)
-router.get('/peminjaman', Controller.listPeminjaman)
+router.get('/peminjaman', checkIfLogin, Controller.listPeminjaman)
 
 router.use('/', loginRouter)
 router.use('/books', bookRouter)

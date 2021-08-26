@@ -3,13 +3,13 @@ const { decryptPass } = require('../helpers/bcrypt')
 
 class Controller {
   static homePage (req, res) {
-    res.render('homepage')
+    res.render('homepage', { isLogin: req.session.isLogin })
   }
   static showAuthor (req, res) {
     Author.findAll({
       include: Book
     })
-      .then(data => {res.render('author', { data })})
+      .then(data => {res.render('author', { data, isLogin: true })})
       .catch(err => console.log(err))
   }
   static getAddAuthor (req, res) {
@@ -81,7 +81,7 @@ class Controller {
       .catch(err => console.log(err))
   }
   static loginPage (req, res) {
-    res.render('login')
+    res.render('login', { isLogin: false })
   }
   static login (req, res) {
     let data = {
@@ -109,7 +109,7 @@ class Controller {
       })
   }
   static registerPage (req, res) {
-    res.render('register')
+    res.render('login', { isLogin: false })
   }
   static register (req, res) {
     let baru = {
@@ -152,35 +152,38 @@ class Controller {
     .then(() => res.redirect('/users'))
     .catch(err => res.send(err))
   }
-  static bookDetail (req, res) {
-      const id = req.params.id
-      Book.findByPk(id)
-        .then(data => {
-            res.render('bookDetail', { book: data })
-        })
-        .catch(err => res.send(err))
-  }
   static listPeminjaman (req, res) {
       res.render('peminjaman')
   }
   static listBook (req, res) {
       Book.findAll()
           .then(data => {
-              res.render('books', { books: data })
+              res.render('books', { books: data, isLogin: true })
           })
           .catch(err => res.send(err))
   }
   static showAddBooksForm (req, res) {
-    res.render('addBookForm')
+    let publishers
+    Publisher.findAll()
+        .then(data => {
+            publishers = data
+            return Author.findAll()
+        })
+        .then(data => {
+            res.render('addBookForm', { isLogin: true, publishers, authors: data })
+        })
   }
   static addBook (req, res) {
-    console.log(req.body)
     const { judul, tahun_terbit, cover, stock } = req.body
     Book.create({
             judul, tahun_terbit, cover, stock
         }).then(data => {
             res.redirect('/books')
         }).catch(err => res.send(err))
+  }
+  static logout (req, res) {
+    req.session.destroy()
+    res.redirect('/')
   }
 }
 
