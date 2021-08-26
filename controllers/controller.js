@@ -6,8 +6,11 @@ class Controller {
     res.render('homepage', { isLogin: req.session.isLogin })
   }
   static showAuthor (req, res) {
-    Author.findAll()
-      .then(data => res.render('author', { data }))
+    Author.findAll({ include: Book })
+      .then(data => {
+          console.log(data)
+        res.render('author', { data, isLogin: true })
+      })
       .catch(err => console.log(err))
   }
   static getAddAuthor (req, res) {
@@ -100,12 +103,20 @@ class Controller {
   static listBook (req, res) {
       Book.findAll()
           .then(data => {
-              res.render('books', { books: data })
+              res.render('books', { books: data, isLogin: true })
           })
           .catch(err => res.send(err))
   }
   static showAddBooksForm (req, res) {
-    res.render('addBookForm')
+    let publishers
+    Publisher.findAll()
+        .then(data => {
+            publishers = data
+            return Author.findAll()
+        })
+        .then(data => {
+            res.render('addBookForm', { isLogin: true, publishers, authors: data })
+        })
   }
   static addBook (req, res) {
     const { judul, tahun_terbit, cover, stock } = req.body
