@@ -1,7 +1,8 @@
 const express = require('express')
 const userRouter = express.Router()
 const Controller = require('../controllers/controller')
+const checkIfAdmin = require('../middlewares/checkLogin')
 
-userRouter.get('/', Controller.showUser)
+userRouter.get('/', checkIfAdmin, Controller.showUser)
 
 module.exports = userRouter

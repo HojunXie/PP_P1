@@ -27,7 +27,7 @@ class Controller {
       .catch(err => console.log(err))
   }
   static loginPage (req, res) {
-    res.render('login')
+    res.render('login', { isLogin: false })
   }
   static login (req, res) {
     let data = {
@@ -55,7 +55,7 @@ class Controller {
       })
   }
   static registerPage (req, res) {
-    res.render('register')
+    res.render('register', { isLogin: false })
   }
   static register (req, res) {
     let data = {
