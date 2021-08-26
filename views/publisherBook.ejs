@@ -1,14 +1,12 @@
 <%- include('partials/header', { title: 'Login', isLogin }) %>
     <h2>List of Books</h2>
-    <p><a href="/books/add">Add Book</a></p>
+
     <table class="table" border="1">
         <thead>
             <tr>
                 <td>Cover</td>
                 <td>Judul</td>
                 <td>Tahun Terbit</td>
-                <td>Author</td>
-                <td>Publisher</td>
                 <td>Stock</td>
                 <td>Action</td>
             </tr>
@@ -17,25 +15,15 @@
             <% books.forEach(book => { %>
                 <tr>
                     <td><img src="<%= book.cover %>" height="200"></td>
-                    <td><%= book.judul %></td>
+                    <td>
+                        <a href="/books/<%= book.id %>">
+                            <%= book.judul %>
+                        </a>
+                    </td>
                     <td><%= book.tahun_terbit %></td>
-                    <td>
-                        <% if (book.Author) { %>
-                            <%= book.Author.name %>
-                        <% } else { %>
-                            Unknown
-                        <% } %>
-                    </td>
-                    <td>
-                        <% if (book.Publisher) { %>
-                            <%= book.Publisher.name %>
-                        <% } else { %>
-                            Unknown
-                        <% } %>
-                    </td>
                     <td><%= book.stock %></td>
                     <td>
-                        <a href="/books/<%= book.id %>/rent">Pinjam</a> |
+                        <a href="/books/<%= book.id %>/pinjam">Pinjam</a> |
                         <a href="/books/<%= book.id %>/edit">Edit</a>
                     </td>
                 </tr>

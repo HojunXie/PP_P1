@@ -1,4 +1,4 @@
-const { Author, Publisher, User, Book } = require('../models')
+const { Author, Publisher, User, Book, BookRent } = require('../models')
 const { decryptPass } = require('../helpers/bcrypt')
 
 class Controller {
@@ -11,6 +11,15 @@ class Controller {
     })
       .then(data => {res.render('author', { data, isLogin: true })})
       .catch(err => console.log(err))
+  }
+  static showBookByAuthor (req, res) {
+    Book.findAll({
+      where: {
+        AuthId: req.params.id
+      }
+    })
+    .then(data => res.render('authorBook', { books: data, isLogin: true }))
+    .catch(err => console.log(err))
   }
   static getAddAuthor (req, res) {
     res.render('addAuthor')
@@ -38,8 +47,17 @@ class Controller {
     Publisher.findAll({
       include: Book
     })
-      .then(data => {res.render('publisher', { data })})
+      .then(data => {res.render('publisher', { data, isLogin: true})})
       .catch(err => console.log(err))
+  }
+  static showBookByPublisher (req, res) {
+    Book.findAll({
+      where: {
+        PubId: req.params.id
+      }
+    })
+    .then(data => res.render('publisherBook', { books: data, isLogin: true }))
+    .catch(err => console.log(err))
   }
   static getAddPublisher (req, res) {
     res.render('addPublisher')
@@ -80,22 +98,27 @@ class Controller {
       .then(data => res.render('admin', { data }))
       .catch(err => console.log(err))
   }
+  static editProfile (req, res) {
+    User.findByPk(req.params.id)
+      .then(data => res.render('editProfile', { data, isLogin: true }))
+      .catch(err => console.log(err))
+  }
   static loginPage (req, res) {
     res.render('login', { isLogin: false })
   }
   static login (req, res) {
-    let data = {
+    let baru = {
       email: req.body.email,
       password: req.body.password
     }
     User.findOne({
       where: {
-        email: data.email
+        email: baru.email
       }
     })
       .then(data => {
         if (data) {
-          if (decryptPass(password, data.password)) {
+          if (decryptPass(baru.password, data.password)) {
             req.session.email = data.email
             req.session.isLogin = true
             if (data.role === 'admin') {
@@ -107,6 +130,7 @@ class Controller {
           res.send(data)
         }
       })
+      .catch(err => console.log(err))
   }
   static registerPage (req, res) {
     res.render('login', { isLogin: false })
@@ -153,10 +177,10 @@ class Controller {
     .catch(err => res.send(err))
   }
   static listPeminjaman (req, res) {
-      res.render('peminjaman')
+      res.render('peminjaman', { isLogin: true })
   }
   static listBook (req, res) {
-      Book.findAll()
+    Book.findAll({ include: [Publisher, Author]})
           .then(data => {
               res.render('books', { books: data, isLogin: true })
           })
@@ -174,9 +198,11 @@ class Controller {
         })
   }
   static addBook (req, res) {
-    const { judul, tahun_terbit, cover, stock } = req.body
-    Book.create({
-            judul, tahun_terbit, cover, stock
+    const { judul, tahun_terbit, cover, stock, publisher_id, author_id } = req.body
+      Book.create({
+            judul, tahun_terbit, cover, stock,
+            PubId: publisher_id,
+            AuthId: author_id
         }).then(data => {
             res.redirect('/books')
         }).catch(err => res.send(err))
@@ -195,14 +221,13 @@ class Controller {
         })
         .then(data => {
             authors = data
-            return Book.findByPk(req.params.id)
+            return Book.findByPk(req.params.id, { include: [Publisher, Author]})
         })
         .then(data => {
             console.log(data)
             res.render('editBookForm', { isLogin: true, book: data, publishers, authors })
         })
   }
-
   static postEditBook (req, res) {
       const { judul, tahun_terbit, stock, cover, publisher_id, author_id } = req.body
       Book.update({
@@ -210,16 +235,51 @@ class Controller {
           tahun_terbit,
           cover,
           stock,
-          publisher_id,
-          author_id
+          PubId: publisher_id,
+          AuthId: author_id,
+          updatedAt: new Date()
       }, {
           where: {
               id: req.params.id
           }
       }).then(data => {
-
+          res.redirect('/books')
       }).catch(err => res.send(err))
   }
+  static userRentBook (req, res) {
+    const bookId = req.params.id
+    const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
+    let user
+    User.findOne({ where: { email: userEmail }})
+      .then(data => {
+          user = data
+          return BookRent.create({
+              BookId: bookId,
+              MemberId: user.id
+          })
+      })
+      .then(data => {
+          res.redirect('/my-rents')
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
+  }
+  static showMyRents (req, res) {
+    const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
+    User.findOne({ where: { email: userEmail }, include: Book})
+      .then(data => {
+          let books = data.Books.filter(book => {
+              return book.BookRent.rDate === null
+          })
+          res.render('myRents', { user: data, books, isLogin: true })
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
+    }
 }
 
 module.exports = Controller

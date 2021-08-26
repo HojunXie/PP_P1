@@ -10,8 +10,7 @@ app.use('/public', express.static('public'));
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  saveUninitialized: true
 }))
 app.use('/', router)
 

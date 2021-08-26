@@ -16,3 +16,10 @@ function dateInString (date) {
   let y = date.getFullYear()
   return `${d}/${m}/${y}`
 }
+
+function addDays (date, numOfDays) {
+  date.setDate(date.getDate() + numOfDays)
+  return date
+}
+
+module.exports = { upperCaseFirstLetter, dateInString, addDays }

@@ -1,6 +1,6 @@
 <%- include('partials/header', { title: 'Login' }) %>
   <div class="form-container">
-    <form>
+    <form action="/login" method="POST">
       <div>
         <label for="email">Email:</label><br>
         <input type="text" id="email" name="email"><br>
@@ -10,7 +10,7 @@
         <input type="password" id="password" name="password"><br>
       </div>
       <div>
-        <input type="submit" value="Register">
+        <input type="submit" value="Log in">
       </div>
     </form>
   </div>

@@ -15,6 +15,7 @@
           <td><%= publisher.rating %></td>
           <td><%= publisher.Books.length %></td>
           <td>
+            <a href="/publishers/books/<%=publisher.id%>">Books</a>
             <a href="/publishers/delete/<%=publisher.id%>">Delete</a>
           </td>
         </tr>
