@@ -10,6 +10,12 @@ class Controller {
       .then(data => res.render('author', { data }))
       .catch(err => console.log(err))
   }
+  static getAddAuthor (req, res) {
+
+  }
+  static deleteAuthor (req, res) {
+
+  }
   static showPublisher (req, res) {
     Publisher.findAll()
       .then(data => res.render('publisher', { data }))
@@ -99,7 +105,16 @@ class Controller {
           .catch(err => res.send(err))
   }
   static showAddBooksForm (req, res) {
-
+    res.render('addBookForm')
+  }
+  static addBook (req, res) {
+    console.log(req.body)
+    const { judul, tahun_terbit, cover, stock } = req.body
+    Book.create({
+            judul, tahun_terbit, cover, stock
+        }).then(data => {
+            res.redirect('/books')
+        }).catch(err => res.send(err))
   }
 }
 
