@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/HojunXie/PP_P1#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "pg": "^8.7.1",
     "sequelize": "^6.6.5"
   },

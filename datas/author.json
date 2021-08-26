@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Agatha Christie",
+    "gender": "Female",
+    "age": 30
+  },
+  {
+    "name": "J. K. Rowling",
+    "gender": "Female",
+    "age": 54
+  },
+  {
+    "name": "George R. R. Martin",
+    "gender": "Male",
+    "age": 71
+  },
+  {
+    "name": "Suzanne Collins",
+    "gender": "Female",
+    "age": 57
+  },
+  {
+    "name": "James Dashner",
+    "gender": "Male",
+    "age": 47
+  },
+  {
+    "name": "William Shakespeare",
+    "gender": "Male",
+    "age": 52
+  },
+  {
+    "name": "Edgar Allan Poe",
+    "gender": "Male",
+    "age": 40
+  }
+]

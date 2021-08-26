@@ -1,0 +1,30 @@
+<%- include('partials/header', { title: 'Login' }) %>
+    <h2>List of Books</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Cover</td>
+                <td>Judul</td>
+                <td>Tahun Terbit</td>
+                <td>Stock</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach(book => { %>
+                <tr>
+                    <td><img src="<%= book.cover %>" height="200"></td>
+                    <td>
+                        <a href="/books/<%= book.id %>">
+                            <%= book.judul %>
+                        </a>
+                    </td>
+                    <td><%= book.tahun_terbit %></td>
+                    <td><%= book.stock %></td>
+                    <td><a href="/books/<%= book.id %>/pinjam">Pinjam</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<%- include('partials/footer') %>

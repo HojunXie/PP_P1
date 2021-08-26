@@ -1,0 +1,22 @@
+<%- include('partials/header', { title: 'The Authors' }) %>  
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Books</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(author => { %>
+        <tr>
+          <td><%= author.name %></td>
+          <td><%= author.gender %></td>
+          <td><%= author.age %></td>
+          <td>0</td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<%- include('partials/footer') %>
