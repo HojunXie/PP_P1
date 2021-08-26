@@ -1,4 +1,5 @@
 const { Author, Publisher, User } = require('../models')
+const { decryptPass } = require('../helpers/bcrypt')
 
 class Controller {
   static homePage (req, res) {
@@ -22,8 +23,62 @@ class Controller {
   static loginPage (req, res) {
     res.render('login')
   }
+  static login (req, res) {
+    let data = {
+      email: req.body.email,
+      password: req.body.password
+    }
+    User.findOne({
+      where: {
+        email: data.email
+      }
+    })
+      .then(data => {
+        if (data) {
+          if (decryptPass(password, data.password)) {
+            req.session.email = data.email
+            req.session.isLogin = true
+            if (data.role === 'Admin') {
+              req.session.isAdmin = true
+            }
+            res.redirect('/')
+          }
+        } else {
+          res.send(data)
+        }
+      })
+  }
   static registerPage (req, res) {
     res.render('register')
+  }
+  static register (req, res) {
+    let data = {
+      email: req.body.email,
+      age: req.body.age,
+      gender: req.body.gender,
+      password: req.body.password,
+      tel: req.body.tel,
+    }
+    if (req.body.key) {
+      data.role = "Admin"
+    } else {
+      data.role = 'Member'
+    }
+    User.findOne({
+      where: {
+        email: data.email
+      }
+    })
+    .then(data => {
+      if (!data) {
+        User.create(data)
+          .then(() => res.redirect('/login'))
+          .catch(err => res.send(err))
+      } else {
+        res.send('email sudah terdaftar')
+      }
+    })
+    .catch(err => console.log(err))
   }
 }
 

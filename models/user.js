@@ -1,5 +1,5 @@
 'use strict';
-const {encryptPass, decryptPass} = require('../helpers/bcrypt')
+const {encryptPass} = require('../helpers/bcrypt')
 const {
   Model
 } = require('sequelize');
@@ -15,12 +15,77 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    tel: DataTypes.STRING,
-    password: DataTypes.STRING,
+    name:{
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Name can't be empty!"
+        }
+      }
+    },
+    email:{
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Email Can't be empty!"
+        },
+        isEmail: {
+          msg: "Email is invalid!"
+        }
+      }
+    },
+    gender:{
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Gender can't be empty!"
+        }
+      }
+    },
+    age:{
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: "Age can't be empty!"
+        },
+        min: {
+          args: 10,
+          msg: "You have to be older than 10 to register an account!"
+        },
+        max: {
+          args: 100,
+          msg: "You're too old!"
+        }
+      }
+    },
+    tel:{
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Phone Number can't be empty!"
+        },
+        min: {
+          args: 8,
+          msg: "Phone number is invalid!"
+        },
+        max: {
+          args: 15,
+          msg: "Phone number is invalid!"
+        }
+      }
+    },
+    password:{
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Password can't be empty!"
+        },
+        min: {
+          args: 8,
+          msg: "Password minimum 8 characters!"
+        }
+      }
+    },
     role: DataTypes.STRING
   }, {
     hooks: {

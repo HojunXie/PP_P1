@@ -5,7 +5,7 @@
     "gender": "Male",
     "age": 23,
     "tel": "09876152113",
-    "password": "sayasukabaca",
+    "password": "$2b$10$mxR3aFysInWAa21fg04jF.6uGnaAydQF1JkDJzMjn7jdY4VfXz49m",
     "role": "member"
   },
   {
@@ -14,7 +14,7 @@
     "gender": "Male",
     "age": 29,
     "tel": "098761529117",
-    "password": "sayasukaread",
+    "password": "$2b$10$bwcl61d5KW0hOvuhUbVtFuXMQb9pi5gKr2TjhrsdpzEAhXOVYeXj6",
     "role": "member"
   },
   {
@@ -23,7 +23,7 @@
     "gender": "Male",
     "age": 31,
     "tel": "088676152113",
-    "password": "sayalikebaca",
+    "password": "$2b$10$Y.xgzyWCGi5bUrb9NyQhiuCJB87H1K8YhMqoPVjcE9jNQviAEszUW",
     "role": "member"
   },
   {
@@ -32,7 +32,7 @@
     "gender": "Female",
     "age": 21,
     "tel": "09876152223",
-    "password": "isukabaca",
+    "password": "$2b$10$TyxkJIZjarKfh9tfG6a3UeKFgvzvWHxTp/EeiKTMCoJ52MQR91gJy",
     "role": "admin"
   }
 ]

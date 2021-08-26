@@ -14,7 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Publisher.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Publisher name can't be empty!"
+        }
+      }
+    },
     rating: DataTypes.INTEGER
   }, {
     sequelize,
