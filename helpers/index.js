@@ -4,4 +4,17 @@ function upperCaseFirstLetter (string) {
     return transformed.join(' ')
 }
 
-module.exports = { upperCaseFirstLetter }
+function dateInString (date) {
+    let d = date.getDate()
+    if (d < 10) {
+        d = '0' + d
+    }
+    let m = date.getMonth() + 1 // because getMonth returns 0-11
+    if (m < 10) {
+        m = '0' + m
+    }
+    let y = date.getFullYear()
+    return `${d}/${m}/${y}`
+}
+
+module.exports = { upperCaseFirstLetter, dateInString }
