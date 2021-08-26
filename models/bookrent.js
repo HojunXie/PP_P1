@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const { addDays } = require('../helpers/index')
+
 module.exports = (sequelize, DataTypes) => {
   class BookRent extends Model {
     /**
@@ -20,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     mDate: DataTypes.DATE,
     rDate: DataTypes.DATE
   }, {
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.bDate = new Date()
+        instance.mDate = addDays(new Date(), 3)
+        instance.createAt = new Date()
+        instance.updatedAt = new Date()
+      }
+    },
     sequelize,
     modelName: 'BookRent',
   });

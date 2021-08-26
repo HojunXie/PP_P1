@@ -1,8 +1,9 @@
-const { Author, Publisher, User, Book } = require('../models')
+const { Author, Publisher, User, Book, BookRent } = require('../models')
 const { decryptPass } = require('../helpers/bcrypt')
 
 class Controller {
   static homePage (req, res) {
+      console.log(">>>>> ", req.session)
     res.render('homepage', { isLogin: req.session.isLogin })
   }
   static showAuthor (req, res) {
@@ -222,6 +223,29 @@ class Controller {
       }).then(data => {
           res.redirect('/books')
       }).catch(err => res.send(err))
+  }
+  static userRentBook (req, res) {
+      const bookId = req.params.id
+      const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
+      let user
+      User.findOne({ where: { email: userEmail }})
+        .then(data => {
+            user = data
+            return BookRent.create({
+                BookId: bookId,
+                MemberId: user.id
+            })
+        })
+        .then(data => {
+            res.redirect('/my-rents')
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+  }
+  static showMyRents (req, res) {
+      res.render('myRents')
   }
 }
 
