@@ -1,0 +1,15 @@
+<%- include('template/header', { pageTitle: "Detail Buku" }); %>
+
+<h2>Head First JavaScript Programming: A Brain-Friendly Guide 1st Edition</h2>
+
+<!-- todo: Tambah kondisional kalau buku ga ada ga muncul tombol pinjam -->
+<a href="/book/1/pinjam">Pinjam</a>
+
+<ul class="detail-buku">
+    <li>Eric Freeman, Elisabeth Robson</li>
+    <li>2000</li>
+    <li>Jumlah tersedia: 3</li>
+    <li>O'Reilly</li>
+</ul>
+
+<%- include('template/footer'); %>
