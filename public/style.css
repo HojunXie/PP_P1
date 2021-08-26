@@ -6,6 +6,8 @@ h1 {
     margin-bottom: 1em;
 }
 
-.detail-buku {
+.book-detail {
+    display: flex;
     margin-top: 2em;
 }
+
