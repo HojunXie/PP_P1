@@ -1,0 +1,11 @@
+<%- include('partials/header', { title: 'Login' }) %>
+  <div class="form-container">
+    <form action="/publishers/add" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="rating">Rating:</label><br>
+        <input type="number" id="rating" name="rating"><br>
+        <input type="submit" value="Add Publisher">
+    </form>
+  </div>
+<%- include('partials/footer') %>

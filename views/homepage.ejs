@@ -1,3 +1,7 @@
-<%- include('partials/header', { title: 'Login' }) %>
-  <p>Selamat datang di Perpus Hacktiv8.</p>
+<%- include('partials/header', { title: 'Login', isLogin: isLogin }) %>
+  <p>Welcome to Perpus Hacktiv8.</p>
+
+  <% if (!isLogin) { %>
+    <p>You're not logged in. Please <a href="/login">login</a> or <a href="/register">register</a> first.</p>
+  <% } %>
 <%- include('partials/footer') %>

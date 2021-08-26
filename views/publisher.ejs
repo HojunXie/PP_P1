@@ -5,6 +5,7 @@
         <th>Name</th>
         <th>Rating</th>
         <th>Books</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -12,7 +13,10 @@
         <tr>
           <td><%= publisher.name %></td>
           <td><%= publisher.rating %></td>
-          <td>0</td>
+          <td><%= publisher.Books.length %></td>
+          <td>
+            <a href="/publishers/delete/<%=publisher.id%>">Delete</a>
+          </td>
         </tr>
       <% }) %>
     </tbody>

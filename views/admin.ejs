@@ -1,4 +1,4 @@
-<%- include('partials/header', { title: 'Member List' }) %>
+<%- include('partials/header', { title: 'Admin List' }) %>
   <table border="1">
     <thead>
       <tr>
@@ -7,7 +7,6 @@
         <th>Age</th>
         <th>Email</th>
         <th>Phone Num</th>
-        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -18,9 +17,6 @@
           <td><%= member.age %></td>
           <td><%= member.email %></td>
           <td><%= member.tel %></td>
-          <td>
-            <a href="/users/delete/<%=member.id%>">Kick</a>
-          </td>
         </tr>
       <% }) %>
     </tbody>
