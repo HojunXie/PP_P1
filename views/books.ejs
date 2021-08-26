@@ -1,7 +1,7 @@
 <%- include('partials/header', { title: 'Login', isLogin }) %>
     <h2>List of Books</h2>
 
-    <table class="table">
+    <table class="table" border="1">
         <thead>
             <tr>
                 <td>Cover</td>
@@ -22,7 +22,10 @@
                     </td>
                     <td><%= book.tahun_terbit %></td>
                     <td><%= book.stock %></td>
-                    <td><a href="/books/<%= book.id %>/pinjam">Pinjam</a></td>
+                    <td>
+                        <a href="/books/<%= book.id %>/pinjam">Pinjam</a> |
+                        <a href="/books/<%= book.id %>/edit">Edit</a>
+                    </td>
                 </tr>
             <% }) %>
         </tbody>

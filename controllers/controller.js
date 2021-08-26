@@ -185,6 +185,41 @@ class Controller {
     req.session.destroy()
     res.redirect('/')
   }
+  static editBookForm (req, res) {
+    let publishers
+    let authors
+    Publisher.findAll()
+        .then(data => {
+            publishers = data
+            return Author.findAll()
+        })
+        .then(data => {
+            authors = data
+            return Book.findByPk(req.params.id)
+        })
+        .then(data => {
+            console.log(data)
+            res.render('editBookForm', { isLogin: true, book: data, publishers, authors })
+        })
+  }
+
+  static postEditBook (req, res) {
+      const { judul, tahun_terbit, stock, cover, publisher_id, author_id } = req.body
+      Book.update({
+          judul,
+          tahun_terbit,
+          cover,
+          stock,
+          publisher_id,
+          author_id
+      }, {
+          where: {
+              id: req.params.id
+          }
+      }).then(data => {
+
+      }).catch(err => res.send(err))
+  }
 }
 
 module.exports = Controller

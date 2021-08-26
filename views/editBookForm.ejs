@@ -1,0 +1,41 @@
+<%- include('partials/header', { title: "Add New Book" }); %>
+
+  <h2>Add New Book</h2>
+
+  <form action="/books/add" method="post">
+    <div>
+        <label for="judul">Title</label>
+        <input type="text" name="judul" id="judul" value="<%= book.judul %>">
+    </div>
+    <div>
+        <label for="tahun_terbit">Published Year</label>
+        <input type="text" name="tahun_terbit" id="tahun_terbit" value="<%= book.tahun_terbit %>">
+    </div>
+    <div>
+        <label for="cover">Cover Url</label>
+        <input type="text" name="cover" id="cover" value="<%= book.cover %>">
+    </div>
+    <div>
+        <label for="stock">Stock</label>
+        <input type="number" name="stock" id="stock" value="<%= book.stock %>">
+    </div>
+    <div>
+        <label for="publisher">Publisher</label>
+        <select name="publisher_id">
+            <% publishers.forEach(item => { %>
+                <option value="<%= item.id %>"><%= item.name %></option>
+            <% }) %>
+        </select>
+    </div>
+    <div>
+        <label for="author">Author</label>
+        <select name="author_id">
+            <% authors.forEach(item => { %>
+                <option value="<%= item.id %>"><%= item.name %></option>
+            <% }) %>
+        </select>
+    </div>
+    <input type="submit" value="Add">
+  </form>
+
+<%- include('partials/footer'); %>
