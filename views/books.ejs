@@ -16,13 +16,13 @@
                 <tr>
                     <td><img src="<%= book.cover %>" height="200"></td>
                     <td>
-                        <a href="/book/<%= book.id %>">
+                        <a href="/books/<%= book.id %>">
                             <%= book.judul %>
                         </a>
                     </td>
                     <td><%= book.tahun_terbit %></td>
                     <td><%= book.stock %></td>
-                    <td><a href="/book/<%= book.id %>/pinjam">Pinjam</a></td>
+                    <td><a href="/books/<%= book.id %>/pinjam">Pinjam</a></td>
                 </tr>
             <% }) %>
         </tbody>

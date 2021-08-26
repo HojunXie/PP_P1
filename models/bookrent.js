@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Publisher extends Model {
+  class BookRent extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,22 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Publisher.hasMany(models.Book, { foreignKey: "PubId" })
     }
   };
-  Publisher.init({
-    name: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          msg: "Publisher name can't be empty!"
-        }
-      }
-    },
-    rating: DataTypes.INTEGER
+  BookRent.init({
+    bookId: DataTypes.INTEGER,
+    memberId: DataTypes.INTEGER,
+    bDate: DataTypes.DATE,
+    mDate: DataTypes.DATE,
+    rDate: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'Publisher',
+    modelName: 'BookRent',
   });
-  return Publisher;
+  return BookRent;
 };

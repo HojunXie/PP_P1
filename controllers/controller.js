@@ -1,4 +1,4 @@
-const { Author, Publisher, User } = require('../models')
+const { Author, Publisher, User, Book } = require('../models')
 const { decryptPass } = require('../helpers/bcrypt')
 
 class Controller {

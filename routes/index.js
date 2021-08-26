@@ -8,7 +8,7 @@ const publisherRouter = require('./publisher')
 const userRouter = require('./user')
 
 router.get('/', Controller.homePage)
-Router.get('/peminjaman', Controller.listPeminjaman)
+router.get('/peminjaman', Controller.listPeminjaman)
 
 router.use('/', loginRouter)
 router.use('/books', bookRouter)

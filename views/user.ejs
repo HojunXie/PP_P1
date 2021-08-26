@@ -1,18 +1,22 @@
 <%- include('partials/header', { title: 'Member List' }) %>
   <table border="1">
-    <tr>
-      <th>Name</th>
-      <th>Gender</th>
-      <th>Age</th>
-      <th>Contact</th>
-    </tr>
-    <% data.forEach(member => { %>
+    <thead>
       <tr>
-        <td><%= member.name %></td>
-        <td><%= member.gender %></td>
-        <td><%= member.age %></td>
-        <td><%= member.tel %></td>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Contact</th>
       </tr>
-    <% }) %>
+    </thead>
+    <tbody>
+      <% data.forEach(member => { %>
+        <tr>
+          <td><%= member.name %></td>
+          <td><%= member.gender %></td>
+          <td><%= member.age %></td>
+          <td><%= member.tel %></td>
+        </tr>
+      <% }) %>
+    </tbody>
   </table>
 <%- include('partials/footer') %>
