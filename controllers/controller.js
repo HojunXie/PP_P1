@@ -108,13 +108,16 @@ class Controller {
     res.render('addBookForm')
   }
   static addBook (req, res) {
-    console.log(req.body)
     const { judul, tahun_terbit, cover, stock } = req.body
     Book.create({
             judul, tahun_terbit, cover, stock
         }).then(data => {
             res.redirect('/books')
         }).catch(err => res.send(err))
+  }
+  static logout (req, res) {
+      req.session.destroy()
+      res.redirect('/')
   }
 }
 
