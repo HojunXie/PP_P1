@@ -3,6 +3,7 @@ const {
   Model
 } = require('sequelize');
 const { addDays } = require('../helpers/index')
+const { dateInString } = require('../helpers/index')
 
 module.exports = (sequelize, DataTypes) => {
   class BookRent extends Model {
@@ -14,10 +15,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    bDateInString() {
+      return dateInString(this.bDate)
+    }
+
+    mDateInString() {
+      return dateInString(this.mDate)
+    }
   };
   BookRent.init({
-    bookId: DataTypes.INTEGER,
-    memberId: DataTypes.INTEGER,
+    BookId: DataTypes.INTEGER,
+    MemberId: DataTypes.INTEGER,
     bDate: DataTypes.DATE,
     mDate: DataTypes.DATE,
     rDate: DataTypes.DATE

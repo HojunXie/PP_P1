@@ -225,7 +225,7 @@ class Controller {
       }).catch(err => res.send(err))
   }
   static userRentBook (req, res) {
-      const bookId = req.params.id
+      let bookId = req.params.id
       const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
       let user
       User.findOne({ where: { email: userEmail }})
@@ -245,7 +245,18 @@ class Controller {
         })
   }
   static showMyRents (req, res) {
-      res.render('myRents')
+      const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
+      User.findOne({ where: { email: userEmail }, include: Book})
+        .then(data => {
+            let books = data.Books.filter(book => {
+                return book.BookRent.rDate === null
+            })
+            res.render('myRents', { user: data, books, isLogin: true })
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
   }
 }
 
