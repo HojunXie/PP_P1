@@ -1,0 +1,21 @@
+<%- include('partials/header', { title: 'My Rents', isLogin }) %>
+    <h2>List of My Current Active Rents</h2>
+    <table class="table" border="1">
+        <thead>
+            <tr>
+                <td>Judul</td>
+                <td>Start Rent Date</td>
+                <td>Deadline Date</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach(book => { %>
+                <tr>
+                    <td> <%= book.judul %> </td>
+                    <td> <%= book.BookRent.bDateInString() %></td>
+                    <td> <%= book.BookRent.mDateInString() %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<%- include('partials/footer') %>
