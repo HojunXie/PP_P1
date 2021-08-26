@@ -1,6 +1,6 @@
 const express = require("express")
-const Controller = require("./controllers/controller")
 const app = express()
+const router = require('./routes/index')
 const port = 3000
 var session = require('express-session')
 
@@ -13,15 +13,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }))
-
-app.get('/', Controller.homePage)
-app.get('/authors', Controller.showAuthor)
-app.get('/publishers', Controller.showPublisher)
-app.get('/users', Controller.showUser)
-app.get('/login', Controller.loginPage)
-app.post('/login', Controller.login)
-app.get('/register', Controller.registerPage)
-app.post('/register', Controller.register)
+app.use('/', router)
 
 app.listen(port, () => {
   console.log('app is listening to', port)

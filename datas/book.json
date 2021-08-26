@@ -1,0 +1,62 @@
+[
+  {
+      "judul": "And Then There Were None",
+      "tahun_terbit": 2011,
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/51MlxNgCsyL._SX308_BO1,204,203,200_.jpg",
+      "stock": 4
+  },
+  {
+      "judul": "Sparkling Cyanide",
+      "tahun_terbit": 2009,
+      "cover": "https://m.media-amazon.com/images/I/41pOvLpJhqL.jpg",
+      "stock": 6
+  },
+  {
+      "judul": "The Mousetrap",
+      "tahun_terbit": 2004,
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/413IoQ50SxL._SX311_BO1,204,203,200_.jpg",
+      "stock": 2
+  },
+  {
+      "judul": "Harry Potter and the Sorcerer's Stone",
+      "tahun_terbit": 1997,
+      "cover": "https://m.media-amazon.com/images/I/51U4p-ir2BL.jpg",
+      "stock": 10
+  },
+  {
+      "judul": "Harry Potter and the Chamber of Secrets",
+      "tahun_terbit": 1998,
+      "cover": "https://m.media-amazon.com/images/I/51RDEwuovQL.jpg",
+      "stock": 6
+  },
+  {
+      "judul": "Dying of the Light: A Novel",
+      "tahun_terbit": 2004,
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/51NpU4Qs+0L._SX329_BO1,204,203,200_.jpg",
+      "stock": 1
+  },
+  {
+      "judul": "A Game of Thrones: A Song of Ice and Fire",
+      "tahun_terbit": 1996,
+      "cover": "https://m.media-amazon.com/images/I/51rDpMtBm5L.jpg",
+      "stock": 2
+  },
+  {
+      "judul": "Rogues",
+      "tahun_terbit": 2008,
+      "cover": "https://m.media-amazon.com/images/I/51fhWBguZzL.jpg",
+      "stock": 1
+  },
+  {
+      "judul": "Fevre Dream",
+      "tahun_terbit": 1990,
+      "cover": "https://m.media-amazon.com/images/I/51pCNRgIbAL.jpg",
+      "stock": 1
+  },
+  {
+      "judul": "A Clash of Kings: A Song of Ice and Fire",
+      "tahun_terbit": 1999,
+      "cover": "https://m.media-amazon.com/images/I/61lu4iDmAEL.jpg",
+      "stock": 1
+  }
+]
