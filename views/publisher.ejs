@@ -1,0 +1,16 @@
+<%- include('partials/header', { title: 'Publisher List' }) %>
+  <table border="1">
+    <tr>
+      <th>Name</th>
+      <th>Rating</th>
+      <th>Books</th>
+    </tr>
+    <% data.forEach(publisher => { %>
+      <tr>
+        <td><%= publisher.name %></td>
+        <td><%= publisher.rating %></td>
+        <td>0</td>
+      </tr>
+    <% }) %>
+  </table>
+<%- include('partials/footer') %>

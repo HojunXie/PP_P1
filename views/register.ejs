@@ -1,0 +1,40 @@
+<%- include('partials/header', { title: 'Register' }) %>
+  <div class="form-container">
+    <form>
+      <div>
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+      </div>
+      <div>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age"><br>
+      </div>
+      <div>
+        <label for="gender">Gender:</label><br>
+        <input type="radio" id="Male" name="gender" value="Male">
+        <label for="Male">Male</label>
+        <input type="radio" id="Female" name="gender" value="Female">
+        <label for="Female">Female</label>
+      </div>
+      <div>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+      </div>
+      <div>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+      </div>
+      <div>
+        <label for="phone_num">Phone Number:</label><br>
+        <input type="text" id="phone_num" name="age"><br>
+      </div>
+      <div>
+        <label for="key">Admin Key:</label><br>
+        <input type="text" id="key" name="key"><br>
+      </div>
+      <div>
+        <input type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+<%- include('partials/footer') %>
