@@ -23,7 +23,11 @@
         <label for="publisher">Publisher</label>
         <select name="publisher_id">
             <% publishers.forEach(item => { %>
-                <option value="<%= item.id %>"><%= item.name %></option>
+                <% if (book.Publisher && book.Publisher.id === item.id) { %>
+                    <option value="<%= item.id %>" selected><%= item.name %></option>
+                <% } else { %>
+                    <option value="<%= item.id %>"><%= item.name %></option>
+                <% } %>
             <% }) %>
         </select>
     </div>
@@ -31,7 +35,11 @@
         <label for="author">Author</label>
         <select name="author_id">
             <% authors.forEach(item => { %>
-                <option value="<%= item.id %>"><%= item.name %></option>
+                <% if (book.Author && book.Author.id === item.id) { %>
+                    <option value="<%= item.id %>" selected><%= item.name %></option>
+                <% } else { %>
+                    <option value="<%= item.id %>"><%= item.name %></option>
+                <% } %>
             <% }) %>
         </select>
     </div>

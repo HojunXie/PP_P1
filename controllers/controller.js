@@ -156,7 +156,7 @@ class Controller {
       res.render('peminjaman')
   }
   static listBook (req, res) {
-      Book.findAll()
+      Book.findAll({ include: [Publisher, Author]})
           .then(data => {
               res.render('books', { books: data, isLogin: true })
           })
@@ -174,9 +174,11 @@ class Controller {
         })
   }
   static addBook (req, res) {
-    const { judul, tahun_terbit, cover, stock } = req.body
+    const { judul, tahun_terbit, cover, stock, publisher_id, author_id } = req.body
     Book.create({
-            judul, tahun_terbit, cover, stock
+            judul, tahun_terbit, cover, stock,
+            PubId: publisher_id,
+            AuthId: author_id
         }).then(data => {
             res.redirect('/books')
         }).catch(err => res.send(err))
@@ -195,7 +197,7 @@ class Controller {
         })
         .then(data => {
             authors = data
-            return Book.findByPk(req.params.id)
+            return Book.findByPk(req.params.id, { include: [Publisher, Author]})
         })
         .then(data => {
             console.log(data)
@@ -210,14 +212,15 @@ class Controller {
           tahun_terbit,
           cover,
           stock,
-          publisher_id,
-          author_id
+          PubId: publisher_id,
+          AuthId: author_id,
+          updatedAt: new Date()
       }, {
           where: {
               id: req.params.id
           }
       }).then(data => {
-
+          res.redirect('/books')
       }).catch(err => res.send(err))
   }
 }
