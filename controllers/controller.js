@@ -3,7 +3,7 @@ const { decryptPass } = require('../helpers/bcrypt')
 
 class Controller {
   static homePage (req, res) {
-    res.render('homepage')
+    res.render('homepage', { isLogin: req.session.isLogin })
   }
   static showAuthor (req, res) {
     Author.findAll()
