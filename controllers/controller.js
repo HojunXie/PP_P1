@@ -11,6 +11,14 @@ class Controller {
     static listPeminjaman (req, res) {
         res.render('peminjaman')
     }
+
+    static listBook (req, res) {
+
+    }
+
+    static showAddBooksForm (req, res) {
+        
+    }
 }
 
 module.exports = Controller
