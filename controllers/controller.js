@@ -6,24 +6,78 @@ class Controller {
     res.render('homepage')
   }
   static showAuthor (req, res) {
-    Author.findAll()
-      .then(data => res.render('author', { data }))
+    Author.findAll({
+      include: Book
+    })
+      .then(data => {res.render('author', { data })})
       .catch(err => console.log(err))
   }
   static getAddAuthor (req, res) {
-
+    res.render('addAuthor')
+  }
+  static postAddAuthor (req, res) {
+    let data = {
+      name: req.body.name,
+      gender: req.body.gender,
+      age: req.body.age
+    }
+    Author.create(data)
+      .then(() => res.redirect('/authors'))
+      .catch(err => res.send(err))
   }
   static deleteAuthor (req, res) {
-
+    Author.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(() => res.redirect('/authors'))
+    .catch(err => console.log(err))
   }
   static showPublisher (req, res) {
-    Publisher.findAll()
-      .then(data => res.render('publisher', { data }))
+    Publisher.findAll({
+      include: Book
+    })
+      .then(data => {res.render('publisher', { data })})
       .catch(err => console.log(err))
   }
+  static getAddPublisher (req, res) {
+    res.render('addPublisher')
+  }
+  static postAddPublisher (req, res) {
+    let data = {
+      name: req.body.name,
+      rating: req.body.rating
+    }
+    Publisher.create(data)
+      .then(() => res.redirect('/publishers'))
+      .catch(err => res.send(err))
+  }
+  static deletePublisher (req, res) {
+    Publisher.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(() => res.redirect('/publishers'))
+    .catch(err => console.log(err))
+  }
   static showUser (req, res) {
-    User.findAll()
+    User.findAll({
+      where: {
+        role: 'member'
+      }
+    })
       .then(data => res.render('user', { data }))
+      .catch(err => console.log(err))
+  }
+  static showAdmin (req, res) {
+    User.findAll({
+      where: {
+        role: 'admin'
+      }
+    })
+      .then(data => res.render('admin', { data }))
       .catch(err => console.log(err))
   }
   static loginPage (req, res) {
@@ -44,7 +98,7 @@ class Controller {
           if (decryptPass(password, data.password)) {
             req.session.email = data.email
             req.session.isLogin = true
-            if (data.role === 'Admin') {
+            if (data.role === 'admin') {
               req.session.isAdmin = true
             }
             res.redirect('/')
@@ -58,33 +112,45 @@ class Controller {
     res.render('register')
   }
   static register (req, res) {
-    let data = {
+    let baru = {
+      name: req.body.name,
       email: req.body.email,
       age: req.body.age,
       gender: req.body.gender,
       password: req.body.password,
-      tel: req.body.tel,
+      tel: req.body.tel
     }
-    if (req.body.key) {
-      data.role = "Admin"
+    if (req.body.key === 'qwerty') {
+      baru.role = "admin"
     } else {
-      data.role = 'Member'
+      baru.role = 'member'
     }
     User.findOne({
       where: {
-        email: data.email
+        email: baru.email
       }
     })
     .then(data => {
       if (!data) {
-        User.create(data)
-          .then(() => res.redirect('/login'))
+        User.create(baru)
+          .then(() => {
+            res.redirect('/login')
+          })
           .catch(err => res.send(err))
       } else {
         res.send('email sudah terdaftar')
       }
     })
     .catch(err => console.log(err))
+  }
+  static kickUser (req, res) {
+    User.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(() => res.redirect('/users'))
+    .catch(err => res.send(err))
   }
   static bookDetail (req, res) {
       const id = req.params.id

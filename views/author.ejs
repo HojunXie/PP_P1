@@ -6,6 +6,7 @@
         <th>Gender</th>
         <th>Age</th>
         <th>Books</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -14,7 +15,10 @@
           <td><%= author.name %></td>
           <td><%= author.gender %></td>
           <td><%= author.age %></td>
-          <td>0</td>
+          <td><%= author.Books.length %></td>
+          <td>
+            <a href="/authors/delete/<%=author.id%>">Delete</a>
+          </td>
         </tr>
       <% }) %>
     </tbody>

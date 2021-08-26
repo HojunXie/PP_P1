@@ -1,0 +1,18 @@
+<%- include('partials/header', { title: 'Login' }) %>
+  <div class="form-container">
+    <form action="/authors/add" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <div>
+          <label for="gender">Gender:</label><br>
+          <input type="radio" id="Male" name="gender" value="Male">
+          <label for="Male">Male</label>
+          <input type="radio" id="Female" name="gender" value="Female">
+          <label for="Female">Female</label>
+        </div>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age"><br>
+        <input type="submit" value="Add Author">
+    </form>
+  </div>
+<%- include('partials/footer') %>

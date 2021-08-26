@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsToMany(models.Book, { through: models.BookRent })
+      // User.belongsToMany(models.Book, { through: models.BookRent })
     }
   };
   User.init({
-    name:{
+    name: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    email:{
+    email: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    gender:{
+    gender: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    age:{
+    age: {
       type: DataTypes.INTEGER,
       validate: {
         notEmpty: {
@@ -59,23 +59,19 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    tel:{
+    tel: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg: "Phone Number can't be empty!"
+          msg: "Phone number can't be empty!"
         },
-        min: {
-          args: 8,
-          msg: "Phone number is invalid!"
-        },
-        max: {
-          args: 15,
-          msg: "Phone number is invalid!"
+        len: {
+          args: [8, 15],
+          msg: "Phone number is invalid"
         }
       }
     },
-    password:{
+    password: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
@@ -91,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate: (instance) => {
-        instance.password = encryptPass(password)
+        instance.password = encryptPass(instance.password)
       }
     },
     sequelize,
