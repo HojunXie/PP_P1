@@ -284,10 +284,12 @@ class Controller {
             res.send(err)
         })
   }
-  
+
   static finishRent (req, res) {
       const { userId, bookId } = req.params
-      BookRent.destroy({ where: { BookId: bookId, MemberId: userId }})
+      BookRent.update(
+          { rDate: new Date() },
+          { where: { BookId: bookId, MemberId: userId }})
         .then(data => {
             res.redirect('/peminjaman')
         })
