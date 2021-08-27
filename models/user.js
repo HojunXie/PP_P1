@@ -86,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING
   }, {
     hooks: {
-      beforeCreate: (instance) => {
+      afterValidate: (instance) => {
         instance.password = encryptPass(instance.password)
       }
     },

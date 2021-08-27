@@ -7,6 +7,7 @@
                 <td>Cover</td>
                 <td>Judul</td>
                 <td>Tahun Terbit</td>
+                <td>Author</td>
                 <td>Stock</td>
                 <td>Action</td>
             </tr>
@@ -21,6 +22,13 @@
                         </a>
                     </td>
                     <td><%= book.tahun_terbit %></td>
+                    <td>
+                        <% if (book.Author) { %>
+                            <%= book.Author.name %>
+                        <% } else { %>
+                            Unknown
+                        <% } %>
+                    </td>
                     <td><%= book.stock %></td>
                     <td>
                         <a href="/books/<%= book.id %>/pinjam">Pinjam</a> |

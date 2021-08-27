@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       Book.belongsTo(models.Author, { foreignKey: "AuthId" })
       Book.belongsToMany(models.User, { through: models.BookRent, foreignKey: "BookId" })
     }
+    static decreaseBook(id) {
+      Book.decrement({stock: 1}, {where: {id: id}})
+    }
   };
   Book.init({
     judul: DataTypes.STRING,
