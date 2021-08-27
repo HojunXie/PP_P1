@@ -1,25 +1,23 @@
 <%- include('partials/header', { title: 'Login' }) %>
-  <h2>Daftar Pinjam</h2>
-
-  <table class="table">
-      <thead>
-          <tr>
-              <td>Judul</td>
-              <td>Tanggal Mulai Pinjam</td>
-              <td>Deadline pengembalian</td>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td>Head First JavaScript Programming: A Brain-Friendly Guide 1st Edition</td>
-              <td>01 Agustus 2021</td>
-              <td>01 September 2021</td>
-          </tr>
-          <tr>
-              <td>JavaScript: The Definitive Guide</td>
-              <td>16 Agustus 2021</td>
-              <td>16 September 2021</td>
-          </tr>
-      </tbody>
-  </table>
+<h2>List of Current Active Rents</h2>
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <td>Member</td>
+            <td>Judul</td>
+            <td>Start Rent Date</td>
+            <td>Deadline Date</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% rents.forEach(rent => { %>
+            <tr>
+                <td> <%= rent.name %> </td>
+                <td> <%= rent.book_title %> </td>
+                <td> <%= rent.start %></td>
+                <td> <%= rent.deadline %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
 <%- include('partials/footer') %>

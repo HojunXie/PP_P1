@@ -9,7 +9,7 @@ const userRouter = require('./user')
 const checkIfLogin = require('../middlewares/checkLogin')
 
 router.get('/', Controller.homePage)
-router.get('/peminjaman', checkIfLogin, Controller.listPeminjaman) // utk admin melihat list buku yg sedang dipinjam
+router.get('/peminjaman', Controller.listPeminjaman) // utk admin melihat list buku yg sedang dipinjam
 router.get('/my-rents', Controller.showMyRents) // untuk user melihat list buku yg sedang dia pinjam
 
 router.use('/', loginRouter)

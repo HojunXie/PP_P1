@@ -154,8 +154,31 @@ class Controller {
     .catch(err => res.send(err))
   }
   static listPeminjaman (req, res) {
-      res.render('peminjaman')
+    let rents = []
+    User.findAll({ include: Book })
+      .then(data => {
+          let userWithRents = data.filter(item => item.Books.length > 0)
+          userWithRents.forEach(user => {
+              user.Books.forEach(book => {
+                  if (book.BookRent.rDate === null) {
+                      rents.push({
+                          name: user.name,
+                          book_title: book.judul,
+                          start: book.BookRent.bDateInString(),
+                          deadline: book.BookRent.mDateInString()
+                      })
+                  }
+              })
+          })
+          res.render('peminjaman', { rents, isLogin: true })
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
+      
   }
+
   static listBook (req, res) {
       Book.findAll({ include: [Publisher, Author]})
           .then(data => {
