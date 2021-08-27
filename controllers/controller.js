@@ -217,7 +217,31 @@ class Controller {
 
   //rent related
   static listPeminjaman (req, res) {
-      res.render('peminjaman', { isLogin: true })
+    let rents = []
+    User.findAll({ include: Book })
+      .then(data => {
+          let userWithRents = data.filter(item => item.Books.length > 0)
+          userWithRents.forEach(user => {
+              user.Books.forEach(book => {
+                  console.log(book.BookRent)
+                  if (book.BookRent.rDate === null) {
+                      rents.push({
+                          user_id: user.id,
+                          book_id: book.id,
+                          name: user.name,
+                          book_title: book.judul,
+                          start: book.BookRent.bDateInString(),
+                          deadline: book.BookRent.mDateInString()
+                      })
+                  }
+              })
+          })
+          res.render('peminjaman', { rents, isLogin: true })
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
   }
   static userRentBook (req, res) {
     const bookId = req.params.id
@@ -252,6 +276,18 @@ class Controller {
           console.log(err)
           res.send(err)
       })
+    }
+    static finishRent (req, res) {
+      const { userId, bookId } = req.params
+      BookRent.update(
+          { rDate: new Date() },
+          { where: { BookId: bookId, MemberId: userId }})
+        .then(data => {
+            res.redirect('/peminjaman')
+        })
+        .catch(err => {
+            res.send(err)
+        })
     }
 
 

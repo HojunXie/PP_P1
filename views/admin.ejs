@@ -1,6 +1,6 @@
 <%- include('partials/header', { title: 'Admin List' }) %>
-  <table border="1">
-    <thead>
+  <table border="1" class="table table-hover">
+    <thead class="table-dark">
       <tr>
         <th>Name</th>
         <th>Gender</th>
@@ -9,7 +9,7 @@
         <th>Phone Num</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-primary">
       <% data.forEach(member => { %>
         <tr>
           <td><%= member.name %></td>

@@ -1,8 +1,8 @@
 <%- include('partials/header', { title: 'Login', isLogin }) %>
     <h2>List of Books</h2>
     <p><a href="/books/add">Add Book</a></p>
-    <table class="table" border="1">
-        <thead>
+    <table border="1" class="table table-hover">
+        <thead class="table-dark">
             <tr>
                 <td>Cover</td>
                 <td>Judul</td>
@@ -13,7 +13,7 @@
                 <td>Action</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-primary">
             <% books.forEach(book => { %>
                 <tr>
                     <td><img src="<%= book.cover %>" height="200"></td>
