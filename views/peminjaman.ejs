@@ -7,6 +7,7 @@
             <td>Judul</td>
             <td>Start Rent Date</td>
             <td>Deadline Date</td>
+            <td>Actions</td>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
                 <td> <%= rent.book_title %> </td>
                 <td> <%= rent.start %></td>
                 <td> <%= rent.deadline %></td>
+                <td> <a href="/finish-rent/<%= rent.user_id %>/<%= rent.book_id %>">Finish Rent</a></td>
             </tr>
         <% }) %>
     </tbody>

@@ -160,8 +160,11 @@ class Controller {
           let userWithRents = data.filter(item => item.Books.length > 0)
           userWithRents.forEach(user => {
               user.Books.forEach(book => {
+                  console.log(book.BookRent)
                   if (book.BookRent.rDate === null) {
                       rents.push({
+                          user_id: user.id,
+                          book_id: book.id,
                           name: user.name,
                           book_title: book.judul,
                           start: book.BookRent.bDateInString(),
@@ -278,6 +281,17 @@ class Controller {
         })
         .catch(err => {
             console.log(err)
+            res.send(err)
+        })
+  }
+  
+  static finishRent (req, res) {
+      const { userId, bookId } = req.params
+      BookRent.destroy({ where: { BookId: bookId, MemberId: userId }})
+        .then(data => {
+            res.redirect('/peminjaman')
+        })
+        .catch(err => {
             res.send(err)
         })
   }
