@@ -5,24 +5,29 @@ class Controller {
   static homePage (req, res) {
     res.render('homepage', { isLogin: req.session.isLogin })
   }
+
+
+
+  //author related
   static showAuthor (req, res) {
     Author.findAll({
       include: Book
     })
-      .then(data => {res.render('author', { data, isLogin: true })})
+      .then(data => {res.render('author', { data, isLogin: req.session.isLogin })})
       .catch(err => console.log(err))
   }
   static showBookByAuthor (req, res) {
     Book.findAll({
       where: {
         AuthId: req.params.id
-      }
+      },
+      include: [Publisher, Author]
     })
-    .then(data => res.render('authorBook', { books: data, isLogin: true }))
+    .then(data => res.render('authorBook', { books: data, isLogin: req.session.isLogin }))
     .catch(err => console.log(err))
   }
   static getAddAuthor (req, res) {
-    res.render('addAuthor')
+    res.render('addAuthor', { isLogin: req.session.isLogin })
   }
   static postAddAuthor (req, res) {
     let data = {
@@ -43,24 +48,29 @@ class Controller {
     .then(() => res.redirect('/authors'))
     .catch(err => console.log(err))
   }
+
+
+
+  // publisher related
   static showPublisher (req, res) {
     Publisher.findAll({
       include: Book
     })
-      .then(data => {res.render('publisher', { data, isLogin: true})})
+      .then(data => {res.render('publisher', { data, isLogin: req.session.isLogin })})
       .catch(err => console.log(err))
   }
   static showBookByPublisher (req, res) {
     Book.findAll({
       where: {
         PubId: req.params.id
-      }
+      },
+      include: [Publisher, Author]
     })
-    .then(data => res.render('publisherBook', { books: data, isLogin: true }))
+    .then(data => res.render('publisherBook', { books: data, isLogin: req.session.isLogin }))
     .catch(err => console.log(err))
   }
   static getAddPublisher (req, res) {
-    res.render('addPublisher')
+    res.render('addPublisher', { isLogin: req.session.isLogin } )
   }
   static postAddPublisher (req, res) {
     let data = {
@@ -80,13 +90,17 @@ class Controller {
     .then(() => res.redirect('/publishers'))
     .catch(err => console.log(err))
   }
+
+
+
+  //user related
   static showUser (req, res) {
     User.findAll({
       where: {
         role: 'member'
       }
     })
-      .then(data => res.render('user', { data }))
+      .then(data => res.render('user', { data, isLogin: req.session.isLogin }))
       .catch(err => console.log(err))
   }
   static showAdmin (req, res) {
@@ -95,13 +109,31 @@ class Controller {
         role: 'admin'
       }
     })
-      .then(data => res.render('admin', { data }))
+      .then(data => res.render('admin', { data, isLogin: req.session.isLogin }))
+      .catch(err => console.log(err))
+  }
+  static getEditProfile (req, res) {
+    User.findByPk(req.params.id)
+      .then(data => res.render('editProfile', { data, isLogin: req.session.isLogin }))
       .catch(err => console.log(err))
   }
   static editProfile (req, res) {
-    User.findByPk(req.params.id)
-      .then(data => res.render('editProfile', { data, isLogin: true }))
-      .catch(err => console.log(err))
+    let baru = {
+      name: req.body.name,
+      email: req.body.email,
+      age: req.body.age,
+      gender: req.body.gender,
+      password: req.body.password,
+      tel: req.body.tel,
+      updatedAt: new Date()
+    }
+    User.update(baru, {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(() => res.redirect('/'))
+    .catch(err => res.send(err))
   }
   static loginPage (req, res) {
     res.render('login', { isLogin: false })
@@ -133,7 +165,7 @@ class Controller {
       .catch(err => console.log(err))
   }
   static registerPage (req, res) {
-    res.render('login', { isLogin: false })
+    res.render('register', { isLogin: false })
   }
   static register (req, res) {
     let baru = {
@@ -176,9 +208,91 @@ class Controller {
     .then(() => res.redirect('/users'))
     .catch(err => res.send(err))
   }
-  static listPeminjaman (req, res) {
-      res.render('peminjaman', { isLogin: true })
+  static logout (req, res) {
+    req.session.destroy()
+    res.redirect('/')
   }
+
+
+
+  //rent related
+  static listPeminjaman (req, res) {
+    let rents = []
+    User.findAll({ include: Book })
+      .then(data => {
+          let userWithRents = data.filter(item => item.Books.length > 0)
+          userWithRents.forEach(user => {
+              user.Books.forEach(book => {
+                  console.log(book.BookRent)
+                  if (book.BookRent.rDate === null) {
+                      rents.push({
+                          user_id: user.id,
+                          book_id: book.id,
+                          name: user.name,
+                          book_title: book.judul,
+                          start: book.BookRent.bDateInString(),
+                          deadline: book.BookRent.mDateInString()
+                      })
+                  }
+              })
+          })
+          res.render('peminjaman', { rents, isLogin: true })
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
+  }
+  static userRentBook (req, res) {
+    const bookId = req.params.id
+    const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
+    let user
+    User.findOne({ where: { email: userEmail }})
+      .then(data => {
+          user = data
+          return BookRent.create({
+              BookId: bookId,
+              MemberId: user.id
+          })
+      })
+      .then(data => {
+          res.redirect('/my-rents')
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
+  }
+  static showMyRents (req, res) {
+    const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
+    User.findOne({ where: { email: userEmail }, include: Book})
+      .then(data => {
+          let books = data.Books.filter(book => {
+              return book.BookRent.rDate === null
+          })
+          res.render('myRents', { user: data, books, isLogin: true })
+      })
+      .catch(err => {
+          console.log(err)
+          res.send(err)
+      })
+    }
+    static finishRent (req, res) {
+      const { userId, bookId } = req.params
+      BookRent.update(
+          { rDate: new Date() },
+          { where: { BookId: bookId, MemberId: userId }})
+        .then(data => {
+            res.redirect('/peminjaman')
+        })
+        .catch(err => {
+            res.send(err)
+        })
+    }
+
+
+
+  //book related
   static listBook (req, res) {
     Book.findAll({ include: [Publisher, Author]})
           .then(data => {
@@ -206,10 +320,6 @@ class Controller {
         }).then(data => {
             res.redirect('/books')
         }).catch(err => res.send(err))
-  }
-  static logout (req, res) {
-    req.session.destroy()
-    res.redirect('/')
   }
   static editBookForm (req, res) {
     let publishers
@@ -246,40 +356,6 @@ class Controller {
           res.redirect('/books')
       }).catch(err => res.send(err))
   }
-  static userRentBook (req, res) {
-    const bookId = req.params.id
-    const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
-    let user
-    User.findOne({ where: { email: userEmail }})
-      .then(data => {
-          user = data
-          return BookRent.create({
-              BookId: bookId,
-              MemberId: user.id
-          })
-      })
-      .then(data => {
-          res.redirect('/my-rents')
-      })
-      .catch(err => {
-          console.log(err)
-          res.send(err)
-      })
-  }
-  static showMyRents (req, res) {
-    const userEmail = "sam.wilson@perpus.id" // Masih hard code. Nanti ganti pakai data req.session
-    User.findOne({ where: { email: userEmail }, include: Book})
-      .then(data => {
-          let books = data.Books.filter(book => {
-              return book.BookRent.rDate === null
-          })
-          res.render('myRents', { user: data, books, isLogin: true })
-      })
-      .catch(err => {
-          console.log(err)
-          res.send(err)
-      })
-    }
 }
 
 module.exports = Controller

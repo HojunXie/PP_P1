@@ -1,6 +1,6 @@
 <%- include('partials/header', { title: 'Member List' }) %>
-  <table border="1">
-    <thead>
+<table border="1" class="table table-hover">
+  <thead class="table-dark">
       <tr>
         <th>Name</th>
         <th>Gender</th>
@@ -10,7 +10,7 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-primary">
       <% data.forEach(member => { %>
         <tr>
           <td><%= member.name %></td>
